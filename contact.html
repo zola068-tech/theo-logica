@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>አግኙን - ቴዎ ሎጂካ</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+            line-height: 1.9;
+        }
+
+        header {
+            background: #102a43;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        header p {
+            margin: 8px 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 7px 10px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: #243b53;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .contact {
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .contact h2 {
+            color: #102a43;
+            font-size: 30px;
+            margin-top: 0;
+        }
+
+        .contact h3 {
+            color: #243b53;
+            margin-top: 30px;
+        }
+
+        .email-box {
+            background: #f0f4f8;
+            border-left: 5px solid #102a43;
+            padding: 18px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .email-box a {
+            color: #102a43;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccd6e0;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #102a43;
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #102a43;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #243b53;
+        }
+
+        footer {
+            background: #102a43;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                gap: 5px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            main {
+                margin: 25px auto;
+                padding: 0 12px;
+            }
+
+            .contact {
+                padding: 22px;
+            }
+
+            .contact h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>ቴዎ ሎጂካ</h1>
+
+    <p>
+        እምነትን፣ ምክንያትንና እውነትን በጥልቀት መመርመር
+    </p>
+
+    <nav>
+        <a href="index.html">መነሻ</a>
+        <a href="article1.html">ጽሑፍ 1</a>
+        <a href="article2.html">ጽሑፍ 2</a>
+        <a href="article3.html">ጽሑፍ 3</a>
+        <a href="about.html">ስለ እኛ</a>
+        <a href="contact.html">አግኙን</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="contact">
+
+        <h2>አግኙን</h2>
+
+        <p>
+            ስለ ቴዎ ሎጂካ ጥያቄ፣ አስተያየት
+            ወይም ሌላ መልዕክት ካለዎት ሊያገኙን ይችላሉ።
+        </p>
+
+
+        <div class="email-box">
+
+            <strong>ኢሜይል፦</strong><br>
+
+            <a href="mailto:zelalemabera068@gmail.com">
+                zelalemabera068@gmail.com
+            </a>
+
+        </div>
+
+
+        <h3>መልዕክትዎን ይላኩልን</h3>
+
+        <form
+            action="mailto:zelalemabera068@gmail.com"
+            method="post"
+            enctype="text/plain"
+        >
+
+            <label for="name">ስም</label>
+
+            <input
+                type="text"
+                id="name"
+                name="ስም"
+                placeholder="ስምዎን ያስገቡ"
+                required
+            >
+
+
+            <label for="email">ኢሜይል</label>
+
+            <input
+                type="email"
+                id="email"
+                name="ኢሜይል"
+                placeholder="ኢሜይልዎን ያስገቡ"
+                required
+            >
+
+
+            <label for="message">መልዕክት</label>
+
+            <textarea
+                id="message"
+                name="መልዕክት"
+                placeholder="መልዕክትዎን እዚህ ይጻፉ..."
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                መልዕክትዎን ይላኩ
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 ቴዎ ሎጂካ — እምነት፣ ሎጂክ እና እውነት
+    </p>
+
+</footer>
+
+</body>
+</html>

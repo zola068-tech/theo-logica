@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ቴዎ ሎጂካ</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+            line-height: 1.8;
+        }
+
+        header {
+            background: #102a43;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        header p {
+            margin: 8px 0 20px;
+            font-size: 16px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 7px 10px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: #243b53;
+        }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            color: #102a43;
+            margin: 0 0 15px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            font-size: 18px;
+        }
+
+        .search {
+            max-width: 650px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #ccd6e0;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: #102a43;
+        }
+
+        .articles {
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .articles h2 {
+            text-align: center;
+            color: #102a43;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .card h3 {
+            color: #102a43;
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .read {
+            display: inline-block;
+            margin-top: 10px;
+            background: #102a43;
+            color: white;
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 7px;
+        }
+
+        .read:hover {
+            background: #243b53;
+        }
+
+        .about-box {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 35px 25px;
+            background: white;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .about-box h2 {
+            color: #102a43;
+        }
+
+        footer {
+            background: #102a43;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 750px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 40px 18px;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .articles {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+    <img src="logo.jpg" alt="logo.jpg">
+    <div>
+        <h1>ቴዎ ሎጂካ</h1>
+        <p>እምነት • ሎጂክ • እውነት</p>
+    </div>
+</div>
+    </>
+
+    <nav>
+        <a href="index.html">መነሻ</a>
+        <a href="article1.html">ጽሑፍ 1</a>
+        <a href="article2.html">ጽሑፍ 2</a>
+        <a href="article3.html">ጽሑፍ 3</a>
+        <a href="about.html">ስለ እኛ</a>
+        <a href="contact.html">አግኙን</a>
+    </nav>
+
+</header>
+
+    <nav>
+        <a href="index.html">መነሻ</a>
+        <a href="article1.html">ጽሑፍ 1</a>
+        <a href="article2.html">ጽሑፍ 2</a>
+        <a href="article3.html">ጽሑፍ 3</a>
+        <a href="about.html">ስለ እኛ</a>
+        <a href="contact.html">አግኙን</a>
+    </nav>
+</>
+
+
+<section class="hero">
+
+    <h2>እንኳን ወደ ቴዎ ሎጂካ በደህና መጡ</h2>
+
+    <p>
+        ስለ እግዚአብሔር፣ ስለ እምነት፣ ስለ እውነት
+        እና ስለ ሕይወት በሎጂክ፣ በምክንያትና
+        በጥልቅ ጥናት የምንመራመርበት መድረክ።
+    </p>
+
+</section>
+
+
+<div class="search">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="ጽሑፍ ለመፈለግ እዚህ ይጻፉ..."
+        onkeyup="searchArticles()"
+    >
+
+</div>
+
+
+<section class="articles">
+
+    <h2>የቅርብ ጽሑፎች</h2>
+
+    <div class="cards" id="articleCards">
+
+
+        <div class="card">
+
+            <img src="article1.jpg" alt="እምነት እና እውነት">
+
+            <div class="card-content">
+
+                <h3>እምነት እና እውነት</h3>
+
+                <p>
+                    እምነት፣ እውነትና ምክንያት
+                    እንዴት ይገናኛሉ?
+                </p>
+
+                <a class="read" href="article1.html">
+                    ጽሑፉን አንብብ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <img src="article2.jpg" alt="እምነት">
+
+            <div class="card-content">
+
+                <h3>እምነት ምንድን ነው?</h3>
+
+                <p>
+                    እምነት ማለት ምንድን ነው?
+                    ከዕውቀትና ከምክንያት ጋርስ እንዴት ይገናኛል?
+                </p>
+
+                <a class="read" href="article2.html">
+                    ጽሑፉን አንብብ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <img src="article3.jpg" alt="እውነት">
+
+            <div class="card-content">
+
+                <h3>እውነት ምንድን ነው?</h3>
+
+                <p>
+                    እውነትን ከፍልስፍና፣ ከሎጂክ
+                    እና ከክርስቲያናዊ እምነት አንጻር መመርመር።
+                </p>
+
+                <a class="read" href="article3.html">
+                    ጽሑፉን አንብብ
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<section class="about-box">
+
+    <h2>ቴዎ ሎጂካ ምንድን ነው?</h2>
+
+    <p>
+        ቴዎ ሎጂካ ስለ እግዚአብሔር፣ ስለ እምነት፣
+        ስለ እውነት እና ስለ ሕይወት በሎጂክ፣
+        በምክንያትና በጥልቅ ጥናት ለማሰብና
+        ለመመርመር የተዘጋጀ መድረክ ነው።
+    </p>
+
+    <a class="read" href="about.html">
+        ስለ ቴዎ ሎጂካ የበለጠ ይወቁ
+    </a>
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 ቴዎ ሎጂካ — እምነት፣ ሎጂክ እና እውነት
+    </p>
+
+</footer>
+
+
+<script>
+
+function searchArticles() {
+
+    let input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    let cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(function(card) {
+
+        let text =
+            card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
