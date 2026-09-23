@@ -4,43 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>እምነት እና እውነት - ቴዎ ሎጂካ</title>
+    <title>እምነት፣ ምክንያትና እውነት | ቴዎ ሎጂካ</title>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f5f7fa;
             color: #222;
             line-height: 1.9;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         header {
             background: #102a43;
             color: white;
-            padding: 22px 15px;
+            padding: 25px 15px;
             text-align: center;
         }
 
-        header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
-        nav a {
+        .logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .logo p {
+            margin: 3px 0 0;
+            font-size: 14px;
+        }
+
+        /* ዋና ሜኑ */
+        .menu-area {
+            position: relative;
+            margin-top: 18px;
+        }
+
+        .menu-button {
+            display: none;
+            background: white;
+            color: #102a43;
+            border: none;
+            border-radius: 8px;
+            font-size: 28px;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .main-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .main-menu a {
             color: white;
             text-decoration: none;
-            margin: 0 6px;
+            padding: 9px 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
             font-size: 15px;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        /* Article 1 ውስጠኛ ሜኑ */
+        .article-parts-menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0 30px;
+            padding: 12px;
+            background: #eef2f6;
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .article-parts-menu button {
+            border: none;
+            background: #102a43;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .article-parts-menu button:hover {
+            opacity: 0.85;
         }
 
         main {
@@ -56,44 +129,53 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        .article img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            color: #102a43;
-            font-size: 30px;
+        .article-title {
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        h3 {
+        .article-title h2 {
             color: #102a43;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-size: 22px;
+            margin-bottom: 8px;
         }
 
-        p {
-            margin-bottom: 18px;
-            font-size: 17px;
+        .article-title p {
+            color: #666;
         }
 
-        .verse {
-            background: #eef4f8;
+        /* እያንዳንዱ Part በተናጠል */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-section h2 {
+            color: #102a43;
             border-left: 5px solid #102a43;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 7px;
+            padding-left: 12px;
+            margin-bottom: 20px;
         }
 
-        .reference {
-            text-align: right;
-            font-weight: bold;
-            margin-top: 10px;
+        blockquote {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f0f4f8;
+            border-left: 5px solid #102a43;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .references {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .references h3 {
+            color: #102a43;
         }
 
         footer {
@@ -106,34 +188,57 @@
 
         @media (max-width: 600px) {
 
-            header h1 {
-                font-size: 27px;
+            .logo {
+                flex-direction: column;
+                text-align: center;
             }
 
-            nav a {
-                display: inline-block;
-                margin: 4px;
+            .logo img {
+                width: 90px;
+                height: 90px;
+            }
+
+            .logo h1 {
+                font-size: 26px;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .main-menu {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 10px;
+            }
+
+            .main-menu.show {
+                display: flex;
+            }
+
+            .main-menu a {
+                text-align: center;
+                border-radius: 8px;
             }
 
             main {
-                margin: 20px auto;
-                padding: 15px;
+                margin: 15px auto;
+                padding: 10px;
             }
 
             .article {
                 padding: 20px;
             }
 
-            .article img {
-                max-height: 250px;
+            .article-parts-menu {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
             }
 
-            h2 {
-                font-size: 25px;
-            }
-
-            p {
-                font-size: 16px;
+            .article-parts-menu button {
+                white-space: nowrap;
             }
         }
     </style>
@@ -143,100 +248,324 @@
 
 <header>
 
-    <h1>ቴዎ ሎጂካ</h1>
+    <div class="logo">
+        <img src="logo.jpg" alt="ቴዎ ሎጂካ">
+        <div>
+            <h1>ቴዎ ሎጂካ</h1>
+            <p>እምነት • ሎጂክ • እውነት</p>
+        </div>
+    </div>
 
-    <nav>
-        <a href="index.html">መነሻ</a>
-        <a href="article1.html">ጽሑፍ 1</a>
-        <a href="article2.html">ጽሑፍ 2</a>
-        <a href="article3.html">ጽሑፍ 3</a>
-        <a href="about.html">ስለ እኛ</a>
-        <a href="contact.html">አግኙን</a>
-    </nav>
+    <!-- ዋና ሜኑ -->
+    <div class="menu-area">
+
+        <button class="menu-button" onclick="toggleMainMenu()">⋮</button>
+
+        <nav class="main-menu" id="mainMenu">
+            <a href="index.html">⌂ መነሻ</a>
+            <a href="article1.html">📖 Articles</a>
+            <a href="article2.html">🧠 እምነትና ምክንያት</a>
+            <a href="article3.html">🔎 እውነት</a>
+            <a href="about.html">ℹ ስለ ቴዎ ሎጂካ</a>
+            <a href="contact.html">✉ አግኙን</a>
+        </nav>
+
+    </div>
 
 </header>
 
 
 <main>
 
-    <article class="article">
+<div class="article">
 
-        <img src="article1.jpg" alt="እምነት እና እውነት">
+    <div class="article-title">
+        <h2>እምነት፣ ምክንያትና እውነት</h2>
+        <p>በመጽሐፍ ቅዱስ፣ በታሪክና በአስተሳሰብ የተመሠረተ ጥናት</p>
+    </div>
 
-        <h2>እምነት እና እውነት</h2>
+
+    <!-- Article 1 ውስጠኛ ሜኑ -->
+
+    <div class="article-parts-menu">
+
+        <button onclick="showPart('introduction')">
+            Introduction
+        </button>
+
+        <button onclick="showPart('part2')">
+            Part 2
+        </button>
+
+        <!-- Part 3 ወደፊት አዲስ ጽሑፍ ሲመጣ ይሞላል -->
+
+        <button onclick="showPart('part3')">
+            Part 3
+        </button>
+
+    </div>
+
+
+    <!-- ======================= -->
+    <!-- INTRODUCTION -->
+    <!-- ======================= -->
+
+    <section id="introduction" class="content-section">
+
+        <h2>Introduction</h2>
 
         <p>
-            እምነት የክርስቲያናዊ ሕይወት መሠረታዊ
-            ክፍል ነው። ነገር ግን እምነት ማለት
-            ያለ ማስረጃ ወይም ያለ ምክንያት አንድን
-            ነገር መቀበል ብቻ አይደለም።
+            እምነት የሰው ልጅ በሕይወቱ ውስጥ ከሚያጋጥሙት
+            ጥልቅ ጥያቄዎች አንዱ ነው።
+            እምነት ምንድን ነው? ከምክንያት ጋር ግንኙነት አለው?
+            ማስረጃን ይፈልጋል? ወይስ ማስረጃ በሌለበት
+            ነገር ማመን ብቻ ነው?
         </p>
 
         <p>
-            ክርስቲያናዊ እምነት ከእውነት፣ ከዕውቀት
-            እና ከምክንያት ጋር ጥልቅ ግንኙነት አለው።
-            ስለዚህ የምናምነው ነገር ምንድን ነው?
-            ለምንስ እናምናለን? የሚሉትን ጥያቄዎች
-            መጠየቅ ያስፈልጋል።
+            እነዚህ ጥያቄዎች በክርስቲያናዊ አስተሳሰብ
+            ውስጥ ለብዙ ዘመናት ሲመረመሩ የኖሩ ጥያቄዎች ናቸው።
+            መጽሐፍ ቅዱስ፣ የቀደሙት የቤተክርስቲያን አባቶች፣
+            የክርስቲያን ምሁራን እና ፈላስፎች እምነትን
+            ከእውነት፣ ከማስረጃ እና ከምክንያት ጋር በተለያዩ
+            መንገዶች መርምረዋል።
         </p>
-
-
-        <h3>እምነት እና እውነት</h3>
 
         <p>
-            እምነት እውነትን የሚፈልግ ነው።
-            እውነት ከሌለ እምነት ባዶ ይሆናል።
-            ስለዚህ ክርስቲያን እምነቱን ሲመረምር
-            እውነትን መፈለግ አለበት።
+            ይህ ጥናት እምነትን ከምክንያት ጋር በመቃረን
+            ሳይሆን እምነት፣ ማስረጃ፣ እውቀት እና ሕይወት
+            እንዴት እንደሚያያዙ ለመመርመር ይሞክራል።
         </p>
 
+    </section>
 
-        <div class="verse">
+
+    <!-- ======================= -->
+    <!-- PART 2 -->
+    <!-- ======================= -->
+
+    <section id="part2" class="content-section">
+
+        <h2>Part 2 — እምነት በመጽሐፍ ቅዱስ</h2>
+
+        <p>
+            መጽሐፍ ቅዱስ እምነትን እንደ ባዶ ግምት አይገልጸውም።
+            እምነት በእግዚአብሔር ተስፋና ቃል ላይ
+            የሚመሠረት እርግጠኝነት ነው።
+        </p>
+
+        <blockquote>
+            «እምነት ተስፋ ያደረግነው ነገር እንደሚፈጸም
+            ርግጠኛ የምንሆንበት፣ የማናየውም ነገር
+            እውን መሆኑን የምንረዳበት ነው።»
+            <br>
+            <strong>— ዕብራውያን 11፥1</strong>
+        </blockquote>
+
+        <p>
+            ይህ ትርጉም እምነት ከእውነት የተለየ
+            የስሜት ጉዳይ ብቻ እንዳልሆነ ያሳያል።
+            እምነት የማናየውን ነገር በዘፈቀደ መቀበል
+            ሳይሆን፣ በእግዚአብሔር ቃልና በተስፋው ላይ
+            መታመን ነው።
+        </p>
+
+        <h2>እምነት እና ማስረጃ</h2>
+
+        <p>
+            ክርስቲያናዊ እምነት ምክንያትን ወይም ማስረጃን
+            የሚቃወም አይደለም። አዲስ ኪዳን ራሱ ስለ ኢየሱስ
+            ሕይወት፣ ሞትና ትንሣኤ ምስክርነት ይሰጣል።
+        </p>
+
+        <p>
+            ዮሐንስ ወንጌል የተጻፈበትን ዓላማ ሲገልጽ
+            አንባቢዎች እንዲያምኑ ስለተጻፉት ምስክርነቶች
+            ይናገራል።
+        </p>
+
+        <blockquote>
+            «ነገር ግን ይህ እንድታምኑ በመጽሐፍ ተጽፎአል፤
+            ኢየሱስም ክርስቶስ የእግዚአብሔር ልጅ እንደሆነ
+            በማመናችሁም በስሙ ሕይወት እንዲኖራችሁ ነው።»
+            <br>
+            <strong>— ዮሐንስ 20፥31</strong>
+        </blockquote>
+
+        <p>
+            ስለዚህ እምነት ከማስረጃ ጋር ተቃራኒ አይደለም።
+            እምነት በማስረጃ የተደገፈውን እውነት
+            መቀበልንና በእርሱ መታመንን ያካትታል።
+        </p>
+
+        <h2>እምነት፣ ምክንያትና እውቀት</h2>
+
+        <p>
+            ምክንያት እምነትን ለመመርመርና የምናምነውን
+            ነገር ለመረዳት ይረዳናል። በክርስቲያናዊ
+            አስተሳሰብ እምነትና ምክንያት የግድ ጠላቶች
+            አይደሉም፤ ምክንያት እምነትን ሊያግዝ ይችላል፣
+            እምነትም የምክንያትን ወሰን በማስታወስ
+            ወደ እውነት ሊመራ ይችላል።
+        </p>
+
+        <p>
+            ቅዱስ አውግስጢኖስ እምነትና መረዳት
+            በአንድ ላይ እንደሚሄዱ ሲገልጽ፦
+        </p>
+
+        <blockquote>
+            “Believe, that you may understand.”
+            <br>
+            <strong>— Augustine</strong>
+        </blockquote>
+
+        <p>
+            ይህ ሐሳብ እምነት አእምሮን ማጥፋት ሳይሆን
+            ወደ ጥልቅ መረዳት የሚያመራ መነሻ ሊሆን
+            እንደሚችል ያሳያል።
+        </p>
+
+        <h2>እምነት እና ሕይወት</h2>
+
+        <p>
+            በመጽሐፍ ቅዱስ እምነት በአእምሮ ውስጥ ብቻ
+            የሚቀር እምነት አይደለም። እውነተኛ እምነት
+            በሕይወት ውስጥ ፍሬ ያሳያል።
+        </p>
+
+        <blockquote>
+            «እንዲሁ እምነት ብቻውን፥ ሥራ ከሌለው፥ ሞቶአል።»
+            <br>
+            <strong>— ያዕቆብ 2፥17</strong>
+        </blockquote>
+
+        <p>
+            ስለዚህ እምነት ማለት አንድን ነገር
+            “እውነት ነው” ብሎ በአፍ መናገር ብቻ አይደለም።
+            በሚታመነው እውነት መሠረት መኖርንም ያካትታል።
+        </p>
+
+        <!-- Conclusion + References የPart 2 መጨረሻ ላይ -->
+
+        <div class="references">
+
+            <h3>መደምደሚያ</h3>
 
             <p>
-                «እምነት ተስፋ ያደረግነው ነገር እንደሚፈጸም
-                ርግጠኛ የምንሆንበት፣ የማናየውም ነገር
-                እውን መሆኑን የምንረዳበት ነው።»
+                እምነት የማስረጃ እጥረትን ለመሸፈን የሚደረግ
+                ዝላይ ብቻ አይደለም። በእውነት ላይ መታመን፣
+                ማስረጃን መመርመር፣ በምክንያት መረዳት
+                እና የታመነውን እውነት በሕይወት መግለጽ ነው።
             </p>
 
-            <p class="reference">
-                ዕብራውያን 11፥1
+            <h3>ማጣቀሻዎች</h3>
+
+            <p>
+                መጽሐፍ ቅዱስ፦ ዕብራውያን 11፥1–3፤
+                ዮሐንስ 20፥30–31፤ ያዕቆብ 2፥17–18፤
+                1 ጴጥሮስ 3፥15።
+            </p>
+
+            <p>
+                Augustine, <em>Tractates on the Gospel of John</em>.
+            </p>
+
+            <p>
+                Cyril of Jerusalem, <em>Catechetical Lectures</em>.
+            </p>
+
+            <p>
+                Athanasius, <em>On the Incarnation</em>.
+            </p>
+
+            <p>
+                C. S. Lewis, <em>Mere Christianity</em>.
+            </p>
+
+            <p>
+                Alvin Plantinga,
+                <em>Warranted Christian Belief</em>,
+                Oxford University Press, 2000.
+            </p>
+
+            <p>
+                Alister E. McGrath,
+                <em>Christian Theology: An Introduction</em>.
             </p>
 
         </div>
 
-
-        <h3>ምክንያትና እምነት</h3>
-
-        <p>
-            እምነትና ምክንያት የሚቃረኑ ነገሮች
-            መሆን አይገባቸውም። ምክንያት የምናምነውን
-            ነገር እንድንመረምር ይረዳናል፤ እምነት
-            ደግሞ እውነትን በመታመን እንድንኖር
-            ያደርገናል።
-        </p>
+    </section>
 
 
-        <h3>መደምደሚያ</h3>
+    <!-- ======================= -->
+    <!-- PART 3 -->
+    <!-- ለወደፊት አዲስ ጽሑፍ -->
+    <!-- ======================= -->
+
+    <section id="part3" class="content-section">
+
+        <h2>Part 3</h2>
 
         <p>
-            እምነት ከእውነት የተለየ አይደለም።
-            እውነትን መፈለግ፣ መጠየቅና መመርመር
-            የእምነትን ጥልቀት ለመረዳት ይረዳል።
+            ይቀጥላል 
         </p>
 
-    </article>
+        <p>
+            
+        </p>
+
+    </section>
+
+</div>
 
 </main>
 
 
 <footer>
-
-    <p>
-        © 2026 ቴዎ ሎጂካ — ሥነ መለኮት፣ ሎጂክና ፍልስፍና
-    </p>
-
+    <p>© 2026 ቴዎ ሎጂካ — እምነት • ሎጂክ • እውነት</p>
 </footer>
+
+
+<script>
+
+    /* ዋናው ሜኑ */
+    function toggleMainMenu() {
+        document.getElementById("mainMenu").classList.toggle("show");
+    }
+
+
+    /* Article 1 ውስጥ አንድ Part ብቻ እንዲታይ */
+    function showPart(partId) {
+
+        const sections =
+            document.querySelectorAll(".content-section");
+
+        sections.forEach(function(section) {
+            section.classList.remove("active");
+        });
+
+        const selected =
+            document.getElementById(partId);
+
+        if (selected) {
+            selected.classList.add("active");
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* Page ሲከፈት Introduction ብቻ ይታይ */
+    document.addEventListener("DOMContentLoaded", function() {
+        showPart("introduction");
+    });
+
+</script>
 
 </body>
 </html>
