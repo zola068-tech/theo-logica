@@ -1,442 +1,1245 @@
 <!DOCTYPE html>
 <html lang="am">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ቴዎ ሎጂካ</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            color: #222;
-            line-height: 1.9;
-        }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-        header {
-            background: #102a43;
-            color: white;
-            padding: 25px 15px 15px;
-            text-align: center;
-        }
+<title>ቴዎ ሎጂካ</title>
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        .logo img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 12px;
-        }
+<style>
 
-        .logo h1 {
-            margin: 0;
-            font-size: 30px;
-        }
+*{
+    box-sizing:border-box;
+}
+.dark-button{
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    margin-right:8px;
+}
 
-        .logo p {
-            margin: 3px 0 0;
-            font-size: 14px;
-        }
+body.dark{
+    background:#111827;
+    color:#e5e7eb;
+}
 
-        .main-menu {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 18px 10px 5px;
-        }
+body.dark .hero h1,
+body.dark .section-title h2,
+body.dark .card h3,
+body.dark .dynamic-card h3{
+    color:#f3f4f6;
+}
 
-        .main-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 9px 15px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 25px;
-            font-size: 15px;
-            transition: 0.3s;
-        }
+body.dark .hero p,
+body.dark .section-title p,
+body.dark .card p,
+body.dark .dynamic-card p{
+    color:#cbd5e1;
+}
 
-        .main-menu a:hover {
-            background: white;
-            color: #102a43;
-            transform: translateY(-2px);
-        }
+body.dark .card,
+body.dark .dynamic-card{
+    background:#1f2937;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
 
-        .hero {
-            max-width: 900px;
-            margin: 40px auto 25px;
-            padding: 45px 25px;
-            text-align: center;
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-        }
+body.dark .search-box input{
+    background:#1f2937;
+    color:white;
+    border-color:#374151;
+}
 
-        .hero h2 {
-            font-size: 30px;
-            color: #102a43;
-            margin-top: 0;
-        }
+body.dark .search-box input::placeholder{
+    color:#9ca3af;
+}
+html{
+    scroll-behavior:smooth;
+}
 
-        .hero p {
-            font-size: 17px;
-            max-width: 700px;
-            margin: auto;
-        }
+body{
+    margin:0;
+    font-family:
+    Arial,
+    "Noto Sans Ethiopic",
+    sans-serif;
 
-        .search-box {
-            max-width: 650px;
-            margin: 30px auto;
-            display: flex;
-            gap: 10px;
-            padding: 0 15px;
-        }
+    background:#f5f3ee;
+    color:#202124;
+    line-height:1.9;
+}
+/* =========================
+   PHONE OPTIMIZATION
+========================= */
 
-        .search-box input {
-            flex: 1;
-            padding: 13px 16px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            font-size: 15px;
-            outline: none;
-        }
+@media (max-width: 600px){
 
-        .search-box button {
-            padding: 13px 20px;
-            border: none;
-            border-radius: 25px;
-            background: #102a43;
-            color: white;
-            cursor: pointer;
-            font-size: 15px;
-        }
+    body{
+        font-size:16px;
+        overflow-x:hidden;
+    }
 
-        .search-box button:hover {
-            opacity: 0.85;
-        }
+    header{
+        padding:11px 14px;
+    }
 
-        .cards {
-            max-width: 1100px;
-            margin: 30px auto 50px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
+    .header-inner{
+        width:100%;
+    }
 
-        .card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: 0.3s;
-        }
+    .logo{
+        width:42px;
+        height:42px;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .logo-text{
+        font-size:18px;
+    }
 
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    .menu-button{
+        font-size:28px;
+        padding:5px 8px;
+    }
 
-        .card-content {
-            padding: 22px;
-        }
+    .dark-button{
+        font-size:19px;
+        padding:5px;
+    }
 
-        .card h3 {
-            color: #102a43;
-            margin-top: 0;
-        }
+    nav{
+        top:65px;
+        right:10px;
+        width:220px;
+    }
 
-        .card p {
-            color: #555;
-        }
+    nav a{
+        padding:12px 13px;
+        font-size:15px;
+    }
 
-        .card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 9px 16px;
-            background: #102a43;
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-        }
+    .hero{
+        padding:42px 18px 35px;
+    }
 
-        .about-box {
-            max-width: 850px;
-            margin: 30px auto 50px;
-            padding: 30px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: center;
-        }
+    .hero h1{
+        font-size:30px;
+        line-height:1.4;
+    }
 
-        .about-box h2 {
-            color: #102a43;
-        }
+    .hero p{
+        font-size:15px;
+        line-height:1.9;
+    }
 
-        footer {
-            background: #102a43;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            margin-top: 40px;
-        }
+    .hero-line{
+        width:55px;
+        height:3px;
+        margin:18px auto;
+    }
 
-        @media (max-width: 750px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-        }
+    .search-box{
+        padding:0 15px;
+        margin-bottom:30px;
+    }
 
-        @media (max-width: 600px) {
-            .logo {
-                flex-direction: column;
-                text-align: center;
-            }
+    .search-box input{
+        width:100%;
+        min-height:50px;
+        font-size:16px;
+        padding:13px 17px;
+    }
 
-            .logo img {
-                width: 90px;
-                height: 90px;
-            }
+    .section{
+        padding:10px 15px;
+    }
 
-            .logo h1 {
-                font-size: 26px;
-            }
+    .section-title{
+        margin-bottom:22px;
+    }
 
-            .main-menu {
-                gap: 7px;
-            }
+    .section-title h2{
+        font-size:23px;
+    }
 
-            .main-menu a {
-                font-size: 13px;
-                padding: 8px 11px;
-            }
+    .section-title p{
+        font-size:14px;
+    }
 
-            .hero {
-                margin: 25px 15px;
-                padding: 30px 18px;
-            }
+    .cards{
+        display:flex;
+        flex-direction:column;
+        gap:18px;
+    }
 
-            .hero h2 {
-                font-size: 24px;
-            }
+    .card,
+    .dynamic-card{
+        width:100%;
+        border-radius:14px;
+    }
 
-            .hero p {
-                font-size: 15px;
-            }
+    .card img{
+        height:180px;
+    }
 
-            .search-box {
-                flex-direction: column;
-            }
+    .card-content,
+    .dynamic-content{
+        padding:18px;
+    }
 
-            .search-box button {
-                width: 100%;
-            }
-        }
-    </style>
+    .card h3,
+    .dynamic-card h3{
+        font-size:19px;
+        line-height:1.6;
+    }
+
+    .card p,
+    .dynamic-card p{
+        font-size:15px;
+        line-height:1.9;
+    }
+
+    .read-button{
+        display:block;
+        text-align:center;
+        padding:10px 15px;
+        margin-top:14px;
+    }
+
+    .about-box{
+        margin:40px 15px;
+        padding:25px 18px;
+        border-radius:16px;
+    }
+
+    .about-box h2{
+        font-size:22px;
+    }
+
+    .about-box p{
+        font-size:15px;
+    }
+
+    footer{
+        margin-top:45px;
+        padding:28px 15px;
+        font-size:14px;
+    }
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    background:#102a43;
+    color:white;
+    padding:14px 20px;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.18);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid white;
+}
+
+.logo-text{
+    font-size:22px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu-button{
+    background:transparent;
+    border:0;
+
+    color:white;
+
+    font-size:30px;
+    cursor:pointer;
+
+    line-height:1;
+}
+
+nav{
+    display:none;
+
+    position:absolute;
+    right:15px;
+    top:72px;
+
+    width:230px;
+
+    background:#102a43;
+
+    border-radius:12px;
+
+    padding:8px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
+}
+
+nav.show{
+    display:block;
+}
+
+nav a{
+    display:block;
+
+    color:white;
+    text-decoration:none;
+
+    padding:11px 14px;
+
+    border-radius:8px;
+}
+
+nav a:hover{
+    background:rgba(255,255,255,.12);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    max-width:1100px;
+    margin:0 auto;
+
+    padding:75px 20px 65px;
+
+    text-align:center;
+}
+
+.hero h1{
+    font-size:42px;
+    margin:0 0 15px;
+
+    color:#102a43;
+}
+
+.hero p{
+    max-width:700px;
+    margin:0 auto 25px;
+
+    font-size:18px;
+
+    color:#555;
+}
+
+.hero-line{
+    width:70px;
+    height:4px;
+
+    background:#102a43;
+
+    margin:25px auto;
+
+    border-radius:10px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    max-width:600px;
+    margin:0 auto 45px;
+
+    padding:0 20px;
+}
+
+.search-box input{
+    width:100%;
+
+    padding:15px 18px;
+
+    border:1px solid #ddd;
+
+    border-radius:30px;
+
+    font-size:16px;
+
+    outline:none;
+
+    background:white;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,.07);
+}
+
+.search-box input:focus{
+    border-color:#102a43;
+
+    box-shadow:
+    0 0 0 3px rgba(16,42,67,.10);
+}
+
+
+/* =========================
+   ARTICLES
+========================= */
+
+.section{
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:20px;
+}
+
+.section-title{
+    text-align:center;
+
+    margin-bottom:30px;
+}
+
+.section-title h2{
+    color:#102a43;
+
+    margin-bottom:5px;
+}
+
+.section-title p{
+    color:#666;
+}
+
+
+.cards{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:22px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card,
+.dynamic-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+
+    transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.card:hover,
+.dynamic-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.13);
+}
+
+
+.card img{
+
+    width:100%;
+    height:190px;
+
+    object-fit:cover;
+}
+
+
+.card-content,
+.dynamic-content{
+
+    padding:22px;
+}
+
+.card h3,
+.dynamic-card h3{
+
+    margin-top:0;
+
+    color:#102a43;
+
+    font-size:21px;
+}
+
+.card p,
+.dynamic-card p{
+
+    color:#555;
+
+    font-size:15px;
+}
+
+
+.read-button{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    background:#102a43;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:8px 16px;
+
+    border-radius:20px;
+
+    font-size:14px;
+}
+
+.read-button:hover{
+    background:#1d4d73;
+}
+
+
+/* =========================
+   DYNAMIC ARTICLES
+========================= */
+
+#dynamicArticles{
+    margin-top:45px;
+}
+
+.dynamic-card{
+    margin-bottom:18px;
+}
+
+.article-date{
+    color:#888;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   ABOUT BOX
+========================= */
+
+.about-box{
+
+    max-width:850px;
+
+    margin:60px auto;
+
+    padding:35px 25px;
+
+    background:#102a43;
+
+    color:white;
+
+    border-radius:20px;
+
+    text-align:center;
+}
+
+.about-box h2{
+    margin-top:0;
+}
+
+.about-box p{
+    color:#e5edf5;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    margin-top:70px;
+
+    background:#0b1f33;
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px 20px;
+}
+
+footer p{
+    margin:5px 0;
+}
+
+footer a{
+    color:white;
+    text-decoration:none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:55px 20px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .logo-text{
+        font-size:19px;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
 
-    <div class="logo">
-        <img src="logo.jpg" alt="ቴዎ ሎጂካ Logo">
+<div class="header-inner">
 
-        <div>
-            <h1>ቴዎ ሎጂካ</h1>
-            <p>እምነት • ሎጂክ • እውነት</p>
-        </div>
-    </div>
+<div class="logo-area">
 
-    <nav class="main-menu">
-        <a href="index.html">⌂ መነሻ</a>
-        <a href="article1.html">📖 እምነት</a>
-        <a href="article2.html">🧠 እምነትና ምክንያት</a>
-        <a href="article3.html">🔎 እውነት</a>
-        <a href="about.html">ℹ ስለ ቴዎ ሎጂካ</a>
-        <a href="contact.html">✉ አግኙን</a>
-    </nav>
+<img
+src="logo.jpg"
+class="logo"
+alt="ቴዎ ሎጂካ">
+
+<div class="logo-text">
+ቴዎ ሎጂካ
+</div>
+
+</div>
+
+
+<button
+class="menu-button"
+onclick="toggleMenu()">
+
+⋮
+
+</button>
+<button
+class="dark-button"
+onclick="toggleDarkMode()">
+
+🌙
+
+</button>
+
+<nav id="mainMenu">
+
+<a href="index.html">
+⌂ መነሻ
+</a>
+
+<a href="#articles">
+📖 ጽሑፎች
+</a>
+
+<a href="article2.html">
+🧠 እምነትና ምክንያት
+</a>
+
+<a href="article3.html">
+🔎 እውነት
+</a>
+
+<a href="about.html">
+ℹ ስለ ቴዎ ሎጂካ
+</a>
+
+<a href="contact.html">
+✉ አግኙን
+</a>
+
+</nav>
+
+</div>
 
 </header>
 
-<main>
-
-    <section class="hero">
-        <h2>እንኳን ወደ ቴዎ ሎጂካ በደህና መጡ</h2>
-
-        <p>
-            እምነትን፣ ምክንያትንና እውነትን
-            በጥልቀት መመርመር።
-        </p>
-
-        <p>
-            ስለ እግዚአብሔር፣ ስለ እምነት፣
-            ስለ እውነት እና ስለ ሕይወት
-            በሎጂክ፣ በምክንያትና በጥልቅ ጥናት እንመረምራለን።
-        </p>
-    </section>
 
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="ጽሑፍ ፈልግ..."
-        >
+<!-- HERO -->
 
-        <button onclick="searchArticles()">
-            🔎 ፈልግ
-        </button>
-    </div>
+<section class="hero">
 
+<h1>
+ቴዎ ሎጂካ
+</h1>
 
-    <section class="cards" id="articleCards">
+<div class="hero-line"></div>
 
-        <article class="card">
+<p>
+ስለ እግዚአብሔር፣ ስለ እምነት፣
+ስለ እውነት እና ስለ ሕይወት
+በሎጂክ፣ በምክንያትና
+በጥልቅ ጥናት ለማሰብና
+ለመመርመር።
+</p>
 
-            <img src="article1.jpg" alt="እምነት">
-
-            <div class="card-content">
-
-                <h3>እምነት ምንድን ነው?</h3>
-
-                <p>
-                    እምነት፣ ምክንያትና የክርስቲያን
-                    እምነት መሠረቶችን እንመረምራለን።
-                </p>
-
-                <a href="article1.html">
-                    ጽሑፉን አንብብ →
-                </a>
-
-            </div>
-        </article>
+</section>
 
 
-        <article class="card">
 
-            <img src="article2.jpg" alt="እምነትና ምክንያት">
+<!-- SEARCH -->
 
-            <div class="card-content">
+<div class="search-box">
 
-                <h3>እምነትና ምክንያት</h3>
+<input
+type="text"
+id="searchInput"
+placeholder="ጽሑፍ ይፈልጉ..."
+onkeyup="searchArticles()">
 
-                <p>
-                    እምነት ከምክንያት ጋር ያላትን
-                    ግንኙነት በጥልቀት እንመለከታለን።
-                </p>
-
-                <a href="article2.html">
-                    ጽሑፉን አንብብ →
-                </a>
-
-            </div>
-        </article>
+</div>
 
 
-        <article class="card">
 
-            <img src="article3.jpg" alt="እውነት">
+<!-- ARTICLES -->
 
-            <div class="card-content">
-
-                <h3>እውነት ምንድን ነው?</h3>
-
-                <p>
-                    እውነት ምንድን ነው?
-                    እውነትን ከፍልስፍናና ከክርስትና
-                    አንጻር እንመረምራለን።
-                </p>
-
-                <a href="article3.html">
-                    ጽሑፉን አንብብ →
-                </a>
-
-            </div>
-        </article>
-
-    </section>
+<section
+class="section"
+id="articles">
 
 
-    <section class="about-box">
+<div class="section-title">
 
-        <h2>ቴዎ ሎጂካ ምንድን ነው?</h2>
+<h2>
+📖 ጽሑፎች
+</h2>
 
-        <p>
-            ቴዎ ሎጂካ ስለ እግዚአብሔር፣
-            ስለ እምነት፣ ስለ እውነት እና
-            ስለ ሕይወት በሎጂክ፣ በምክንያትና
-            በጥልቅ ጥናት ለማሰብና ለመመርመር
-            የተዘጋጀ መድረክ ነው።
-        </p>
+<p>
+ስለ እምነት፣ ሎጂክ እና እውነት
+የተለያዩ ጥናቶች
+</p>
 
-        <a href="about.html">
-            ስለ እኛ የበለጠ ይወቁ →
-        </a>
+</div>
 
-    </section>
 
-</main>
 
+<div class="cards">
+
+
+<!-- ARTICLE 1 -->
+
+<div class="card">
+
+<img
+src="article1.jpg"
+alt="ጽሑፍ 1">
+
+<div class="card-content">
+
+<h3>
+ሎጂክ ወይስ እምነት?
+</h3>
+
+<p>
+እምነትና ሎጂክ ተቃራኒዎች ናቸውን?
+እውነትን በምክንያትና በእምነት
+እንዴት እንመረምራለን?
+</p>
+
+<a
+href="article1.html"
+class="read-button">
+
+አንብብ →
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- ARTICLE 2 -->
+
+<div class="card">
+
+<img
+src="article2.jpg"
+alt="ጽሑፍ 2">
+
+<div class="card-content">
+
+<h3>
+እምነትና ምክንያት
+</h3>
+
+<p>
+እምነት ማለት ምክንያትን
+መተው ነውን?
+</p>
+
+<a
+href="article2.html"
+class="read-button">
+
+አንብብ →
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- ARTICLE 3 -->
+
+<div class="card">
+
+<img
+src="article3.jpg"
+alt="ጽሑፍ 3">
+
+<div class="card-content">
+
+<h3>
+እውነት ምንድን ነው?
+</h3>
+
+<p>
+እውነትን እንዴት እንፈልጋለን?
+እውነት ምንጩ ማን ነው?
+</p>
+
+<a
+href="article3.html"
+class="read-button">
+
+አንብብ →
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- DYNAMIC ARTICLES -->
+
+<div id="dynamicArticles">
+
+<div class="section-title">
+
+<h2>
+📚 አዲስ ጽሑፎች
+</h2>
+
+</div>
+
+<div id="articlesList">
+
+<p style="text-align:center;color:#777;">
+ጽሑፎች እየጫኑ ነው...
+</p>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section class="about-box">
+
+<h2>
+ቴዎ ሎጂካ ምንድን ነው?
+</h2>
+
+<p>
+ቴዎ ሎጂካ ስለ እግዚአብሔር፣
+ስለ እምነት፣ ስለ እውነት
+እና ስለ ሕይወት
+በሎጂክ፣ በምክንያትና
+በጥልቅ ጥናት
+ለማሰብና ለመመርመር
+የተዘጋጀ መድረክ ነው።
+</p>
+
+</section>
+
+
+
+<!-- FOOTER -->
 
 <footer>
 
-    <p>© 2026 ቴዎ ሎጂካ</p>
+<p>
+© 2026 ቴዎ ሎጂካ
+</p>
 
-    <p>
-        እምነት • ሎጂክ • እውነት
-    </p>
+<p>
+እምነት • ሎጂክ • እውነት
+</p>
 
 </footer>
 
 
+
 <script>
 
-function searchArticles() {
 
-    const search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+/* =========================
+   SUPABASE
+========================= */
 
-    const cards =
-        document.querySelectorAll(".card");
 
-    cards.forEach(function(card) {
+const SUPABASE_URL =
+"https://evexjlemgkpnfittqloe.supabase.co";
 
-        const text =
-            card.innerText.toLowerCase();
 
-        if (text.includes(search)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
+const SUPABASE_KEY =
+"sb_publishable_iOM3PiGbiHf11yg1biazvw_o66x6ad0";
 
-    });
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+
+/* =========================
+   MENU
+========================= */
+
+
+function toggleMenu(){
+
+document
+.getElementById("mainMenu")
+.classList.toggle("show");
 
 }
 
+
+
+/* =========================
+   LOAD ARTICLES
+========================= */
+
+
+async function loadArticles(){
+
+const list =
+document.getElementById("articlesList");
+
+
+const {data,error} =
+await supabaseClient
+.from("articles")
+.select(
+"id,title,content,created_at"
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML =
+"<p style='text-align:center;color:#a00000;'>ጽሑፎችን መጫን አልተቻለም።</p>";
+
+return;
+
+}
+
+
+if(!data || data.length===0){
+
+list.innerHTML =
+"<p style='text-align:center;color:#777;'>እስካሁን አዲስ ጽሑፍ የለም።</p>";
+
+return;
+
+}
+
+
+list.innerHTML="";
+
+
+data.forEach(
+function(article){
+
+const card =
+document.createElement("div");
+
+card.className =
+"dynamic-card";
+
+
+const content =
+document.createElement("div");
+
+content.className =
+"dynamic-content";
+
+
+const title =
+document.createElement("h3");
+
+title.textContent =
+article.title;
+
+
+const date =
+document.createElement("div");
+
+date.className =
+"article-date";
+
+
+if(article.created_at){
+
+date.textContent =
+new Date(
+article.created_at
+).toLocaleDateString(
+"am-ET"
+);
+
+}
+
+
+const preview =
+document.createElement("p");
+
+
+let text =
+article.content || "";
+
+
+if(text.length>300){
+
+text =
+text.substring(0,300)
++"...";
+
+}
+
+
+preview.textContent =
+text;
+
+
+const link =
+document.createElement("a");
+
+link.className =
+"read-button";
+
+link.textContent =
+"አንብብ →";
+
+link.href =
+"article.html?id="
++article.id;
+
+
+content.appendChild(title);
+
+content.appendChild(date);
+
+content.appendChild(preview);
+
+content.appendChild(link);
+
+card.appendChild(content);
+
+list.appendChild(card);
+
+}
+);
+
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+
+function searchArticles(){
+
+const input =
+document.getElementById(
+"searchInput"
+);
+
+const search =
+input.value.toLowerCase();
+
+
+const cards =
+document.querySelectorAll(
+".card,.dynamic-card"
+);
+
+
+cards.forEach(
+function(card){
+
+const text =
+card.innerText.toLowerCase();
+
+
+if(
+text.includes(search)
+){
+
+card.style.display="block";
+
+}else{
+
+card.style.display="none";
+
+}
+
+}
+);
+
+}
+
+
+
+/* =========================
+   START
+========================= */
+
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+
+        localStorage.setItem(
+            "theoLogicaDark",
+            "true"
+        );
+
+    }else{
+
+        localStorage.setItem(
+            "theoLogicaDark",
+            "false"
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadArticles();
+
+        if(
+            localStorage.getItem(
+                "theoLogicaDark"
+            ) === "true"
+        ){
+
+            document.body.classList.add("dark");
+
+        }
+
+    }
+);
+
+
 </script>
 
+
 </body>
+
 </html>
