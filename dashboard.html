@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="am">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>የቴዎ ሎጂካ ዳሽቦርድ</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+            line-height: 1.8;
+        }
+
+        header {
+            background: #102a43;
+            color: white;
+            padding: 22px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .box h2 {
+            color: #102a43;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 250px;
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 15px;
+        }
+
+        .save-button {
+            background: #102a43;
+            color: white;
+            margin-top: 18px;
+            width: 100%;
+            padding: 13px;
+        }
+
+        .cancel-button {
+            background: #777;
+            color: white;
+            margin-top: 10px;
+            width: 100%;
+            padding: 13px;
+        }
+
+        .article-item {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .article-item h3 {
+            color: #102a43;
+            margin-top: 0;
+        }
+
+        .article-date {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .article-preview {
+            margin-top: 10px;
+        }
+
+        .edit-button {
+            background: #102a43;
+            color: white;
+            margin-right: 8px;
+        }
+
+        .delete-button {
+            background: #b42318;
+            color: white;
+        }
+
+        .success {
+            background: #e7f6ec;
+            color: #176b35;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .error {
+            background: #ffecec;
+            color: #a00000;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 7px 15px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            main {
+                padding: 10px;
+            }
+
+            .box {
+                padding: 18px;
+            }
+
+            .edit-button,
+            .delete-button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>ቴዎ ሎጂካ</h1>
+
+    <p>የአስተዳደር ዳሽቦርድ</p>
+
+    <a href="index.html" class="back">
+        ← ወደ ድረገጹ
+    </a>
+
+</header>
+
+
+<main>
+
+
+    <!-- ADD / EDIT -->
+
+    <section class="box">
+
+        <h2 id="formTitle">
+            ➕ ጽሑፍ አክል
+        </h2>
+
+
+        <label for="title">
+            የጽሑፉ ርዕስ
+        </label>
+
+        <input
+            type="text"
+            id="title"
+            placeholder="ለምሳሌ፦ ሎጂክ ወይስ እምነት?">
+
+
+        <label for="content">
+            የጽሑፉ ይዘት
+        </label>
+
+        <textarea
+            id="content"
+            placeholder="ጽሑፉን እዚህ ያስገቡ..."></textarea>
+
+
+        <button
+            class="save-button"
+            id="saveButton"
+            onclick="saveArticle()">
+
+            💾 ጽሑፉን አስቀምጥ
+
+        </button>
+
+
+        <button
+            class="cancel-button"
+            id="cancelButton"
+            onclick="cancelEdit()"
+            style="display:none;">
+
+            ✖ ማስተካከያውን ሰርዝ
+
+        </button>
+
+
+        <div
+            id="successMessage"
+            class="success">
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="error">
+        </div>
+
+    </section>
+
+
+
+    <!-- ARTICLES -->
+
+    <section class="box">
+
+        <h2>
+            📚 የተቀመጡ ጽሑፎች
+        </h2>
+
+
+        <div id="articlesList">
+
+            <div class="loading">
+                ጽሑፎች እየጫኑ ነው...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+    /* =========================
+       SUPABASE
+    ========================= */
+
+
+    const SUPABASE_URL =
+        "https://evexjlemgkpnfittqloe.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_iOM3PiGbiHf11yg1biazvw_o66x6ad0";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /* =========================
+       CURRENT EDIT ID
+    ========================= */
+
+
+    let editingId = null;
+
+
+
+    /* =========================
+       SHOW MESSAGE
+    ========================= */
+
+
+    function showSuccess(message) {
+
+        const box =
+            document.getElementById(
+                "successMessage"
+            );
+
+        box.textContent = message;
+
+        box.style.display = "block";
+
+
+        document.getElementById(
+            "errorMessage"
+        ).style.display = "none";
+
+    }
+
+
+    function showError(message) {
+
+        const box =
+            document.getElementById(
+                "errorMessage"
+            );
+
+        box.textContent = message;
+
+        box.style.display = "block";
+
+
+        document.getElementById(
+            "successMessage"
+        ).style.display = "none";
+
+    }
+
+
+
+    /* =========================
+       SAVE / UPDATE
+    ========================= */
+
+
+    async function saveArticle() {
+
+
+        const title =
+            document.getElementById(
+                "title"
+            ).value.trim();
+
+
+        const content =
+            document.getElementById(
+                "content"
+            ).value.trim();
+
+
+        if (!title || !content) {
+
+            showError(
+                "እባክዎ ርዕስና ጽሑፍ ይሙሉ።"
+            );
+
+            return;
+
+        }
+
+
+        const button =
+            document.getElementById(
+                "saveButton"
+            );
+
+
+        button.disabled = true;
+
+
+        button.textContent =
+            "እየተቀመጠ ነው...";
+
+
+
+        /* UPDATE */
+
+        if (editingId !== null) {
+
+
+            const { error } =
+                await supabaseClient
+                    .from("articles")
+                    .update({
+                        title: title,
+                        content: content
+                    })
+                    .eq("id", editingId);
+
+
+            if (error) {
+
+                console.error(error);
+
+                showError(
+                    "ጽሑፉን ማስተካከል አልተቻለም።"
+                );
+
+            } else {
+
+                showSuccess(
+                    "ጽሑፉ በትክክል ተስተካክሏል።"
+                );
+
+                cancelEdit();
+
+                loadArticles();
+
+            }
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "💾 ጽሑፉን አስቀምጥ";
+
+            return;
+
+        }
+
+
+
+        /* INSERT */
+
+        const { error } =
+            await supabaseClient
+                .from("articles")
+                .insert([
+                    {
+                        title: title,
+                        content: content
+                    }
+                ]);
+
+
+        if (error) {
+
+            console.error(error);
+
+            showError(
+                "ጽሑፉን ማስቀመጥ አልተቻለም።"
+            );
+
+        } else {
+
+            showSuccess(
+                "ጽሑፉ በትክክል ተቀምጧል።"
+            );
+
+
+            document.getElementById(
+                "title"
+            ).value = "";
+
+
+            document.getElementById(
+                "content"
+            ).value = "";
+
+
+            loadArticles();
+
+        }
+
+
+        button.disabled = false;
+
+
+        button.textContent =
+            "💾 ጽሑፉን አስቀምጥ";
+
+    }
+
+
+
+    /* =========================
+       LOAD ARTICLES
+    ========================= */
+
+
+    async function loadArticles() {
+
+
+        const container =
+            document.getElementById(
+                "articlesList"
+            );
+
+
+        container.innerHTML =
+            '<div class="loading">ጽሑፎች እየጫኑ ነው...</div>';
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("articles")
+                .select(
+                    "id, title, content, created_at"
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(error);
+
+            container.innerHTML =
+                '<div class="error" style="display:block;">ጽሑፎችን መጫን አልተቻለም።</div>';
+
+            return;
+
+        }
+
+
+        if (!data || data.length === 0) {
+
+            container.innerHTML =
+                '<div class="loading">እስካሁን ጽሑፍ የለም።</div>';
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        data.forEach(
+            function(article) {
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "article-item";
+
+
+                const title =
+                    document.createElement(
+                        "h3"
+                    );
+
+
+                title.textContent =
+                    article.title;
+
+
+                const date =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                date.className =
+                    "article-date";
+
+
+                if (article.created_at) {
+
+                    date.textContent =
+                        new Date(
+                            article.created_at
+                        ).toLocaleDateString(
+                            "am-ET"
+                        );
+
+                }
+
+
+                const preview =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                preview.className =
+                    "article-preview";
+
+
+                let text =
+                    article.content || "";
+
+
+                if (text.length > 300) {
+
+                    text =
+                        text.substring(
+                            0,
+                            300
+                        ) + "...";
+
+                }
+
+
+                preview.textContent =
+                    text;
+
+
+                const editButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                editButton.className =
+                    "edit-button";
+
+
+                editButton.textContent =
+                    "✏️ አስተካክል";
+
+
+                editButton.onclick =
+                    function() {
+
+                        editArticle(article);
+
+                    };
+
+
+                const deleteButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                deleteButton.className =
+                    "delete-button";
+
+
+                deleteButton.textContent =
+                    "🗑️ ሰርዝ";
+
+
+                deleteButton.onclick =
+                    function() {
+
+                        deleteArticle(
+                            article.id
+                        );
+
+                    };
+
+
+                item.appendChild(title);
+
+                item.appendChild(date);
+
+                item.appendChild(preview);
+
+                item.appendChild(editButton);
+
+                item.appendChild(deleteButton);
+
+
+                container.appendChild(item);
+
+            }
+        );
+
+    }
+
+
+
+    /* =========================
+       EDIT
+    ========================= */
+
+
+    function editArticle(article) {
+
+
+        editingId =
+            article.id;
+
+
+        document.getElementById(
+            "title"
+        ).value =
+            article.title || "";
+
+
+        document.getElementById(
+            "content"
+        ).value =
+            article.content || "";
+
+
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "✏️ ጽሑፍ አስተካክል";
+
+
+        document.getElementById(
+            "saveButton"
+        ).textContent =
+            "💾 ለውጡን አስቀምጥ";
+
+
+        document.getElementById(
+            "cancelButton"
+        ).style.display =
+            "block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    /* =========================
+       CANCEL EDIT
+    ========================= */
+
+
+    function cancelEdit() {
+
+
+        editingId = null;
+
+
+        document.getElementById(
+            "title"
+        ).value = "";
+
+
+        document.getElementById(
+            "content"
+        ).value = "";
+
+
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "➕ ጽሑፍ አክል";
+
+
+        document.getElementById(
+            "saveButton"
+        ).textContent =
+            "💾 ጽሑፉን አስቀምጥ";
+
+
+        document.getElementById(
+            "cancelButton"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    /* =========================
+       DELETE
+    ========================= */
+
+
+    async function deleteArticle(id) {
+
+
+        const answer =
+            confirm(
+                "ይህን ጽሑፍ በእርግጥ መሰረዝ ይፈልጋሉ?"
+            );
+
+
+        if (!answer) {
+
+            return;
+
+        }
+
+
+        const { error } =
+            await supabaseClient
+                .from("articles")
+                .delete()
+                .eq("id", id);
+
+
+        if (error) {
+
+            console.error(error);
+
+            showError(
+                "ጽሑፉን መሰረዝ አልተቻለም።"
+            );
+
+            return;
+
+        }
+
+
+        showSuccess(
+            "ጽሑፉ ተሰርዟል።"
+        );
+
+
+        loadArticles();
+
+    }
+
+
+
+    /* =========================
+       START
+    ========================= */
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadArticles();
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
